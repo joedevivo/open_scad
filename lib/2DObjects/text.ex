@@ -4,7 +4,7 @@ defmodule OpenSCAD.Text do
 
   defstruct text: "", ## The text to generate.
             size: nil, ## The generated text will have approximately an ascent of the given value (height above the baseline). Default is 10.
-                      ## Note that specific fonts will vary somewhat and may not fill the size specified exactly, usually slightly smaller. 
+                      ## Note that specific fonts will vary somewhat and may not fill the size specified exactly, usually slightly smaller.
             font: nil, ## The name of the font that should be used. This is not the name of the font file, but the logical font name (internally handled by the fontconfig library). This can also include a style parameter, see below. A list of installed fonts & styles can be obtained using the font list dialog (Help -> Font List).
             halign: nil, ## String. The horizontal alignment for the text. Possible values are "left", "center" and "right". Default is "left".
             valign: nil, ## String. The vertical alignment for the text. Possible values are "top", "center", "baseline" and "bottom". Default is "baseline".
@@ -13,7 +13,7 @@ defmodule OpenSCAD.Text do
             language: nil, ## String. The language of the text. Default is "en".
             script: nil, ## String. The script of the text. Default is "latin".
             '$fn': nil ## used for subdividing the curved path segments provided by freetype
-  
+
   def new(params \\ []) do
     OpenSCAD.Element.new(
       %OpenSCAD.Text{},
@@ -23,7 +23,7 @@ end
 
 defimpl OpenSCAD.Object, for: OpenSCAD.Text do
   def to_scad(t) do
-    :io_lib.format("text(\"~s\"~s~s~s~s~s~s~s~s);", 
+    :io_lib.format("text(\"~s\"~s~s~s~s~s~s~s~s);",
                    [t.text,
                     OpenSCAD.Element.maybe_format(t, :font, &inspect/1),
                     OpenSCAD.Element.maybe_format(t, :halign, &inspect/1),
@@ -33,7 +33,7 @@ defimpl OpenSCAD.Object, for: OpenSCAD.Text do
                     OpenSCAD.Element.maybe_format(t, :language, &inspect/1),
                     OpenSCAD.Element.maybe_format(t, :script, &inspect/1),
                     OpenSCAD.Element.maybe_format(t, :'$fn', &to_string/1)
-                    ]) 
+                    ])
     |> to_string
-  end 
+  end
 end

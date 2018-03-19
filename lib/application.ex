@@ -3,9 +3,9 @@ defmodule OpenSCAD.Application do
   require Logger
   def start(_type, _args) do
 
-    children = [ 
+    children = [
       OpenSCAD.Watcher
-    ] 
+    ]
     opts = [strategy: :one_for_one, name: OpenSCAD.Supervisor]
     Supervisor.start_link children, opts
   end

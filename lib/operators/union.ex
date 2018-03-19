@@ -2,7 +2,7 @@ defmodule OpenSCAD.Union do
   @behaviour OpenSCAD.Element
   @type t :: %OpenSCAD.Union{}
 
-  defstruct([]) 
+  defstruct([])
 
   def new(params \\ []) do
     OpenSCAD.Element.new(

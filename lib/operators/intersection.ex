@@ -2,7 +2,7 @@ defmodule OpenSCAD.Intersection do
   @behaviour OpenSCAD.Element
   @type t :: %OpenSCAD.Intersection{}
 
-  defstruct([]) 
+  defstruct([])
 
   def new(params \\ []) do
     OpenSCAD.Element.new(

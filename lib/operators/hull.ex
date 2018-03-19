@@ -2,7 +2,7 @@ defmodule OpenSCAD.Hull do
   @behaviour OpenSCAD.Element
   @type t :: %OpenSCAD.Hull{}
 
-  defstruct([]) 
+  defstruct([])
 
   def new(params \\ []) do
     OpenSCAD.Element.new(

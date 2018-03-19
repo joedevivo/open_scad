@@ -5,7 +5,7 @@ defmodule OpenSCAD.Element do
                 | OpenSCAD.Polygon.t
                 | OpenSCAD.Polyhedron.t
                 | OpenSCAD.Sphere.t
-                | OpenSCAD.Square.t 
+                | OpenSCAD.Square.t
                 | OpenSCAD.Text.t
 
   @type action :: object | BitString
@@ -15,7 +15,7 @@ defmodule OpenSCAD.Element do
   @type t :: action | operator
 
   @callback new(Keyword.t) :: OpenSCAD.Element.t
-  
+
   @spec new(t, Keyword.t, Keyword.t((t, any -> t)))
         :: t
   def new(element, params, transformations \\ []) do
@@ -24,17 +24,17 @@ defmodule OpenSCAD.Element do
                &maybe_override/2)
     |> from_params
   end
-  
-  ## Meant for piping transformation functions before the generic 
+
+  ## Meant for piping transformation functions before the generic
   ## operation `from_params/2`
   defp maybe_override({override_key, override_function}, {params, element}) do
     if Keyword.has_key? params, override_key do
       val = Keyword.get(params, override_key)
-      {Keyword.delete(params, override_key), 
+      {Keyword.delete(params, override_key),
        override_function.(element, val)}
-    else 
+    else
       {params, element}
-    end 
+    end
   end
 
   ## Wrapper for good |>'ing
@@ -51,8 +51,8 @@ defmodule OpenSCAD.Element do
     case Map.get(element, key) do
       nil -> ""
       value ->
-        :io_lib.format(", ~s = ~s", 
-                       [to_string(key), f.(value)]) 
-    end   
+        :io_lib.format(", ~s = ~s",
+                       [to_string(key), f.(value)])
+    end
   end
 end

@@ -2,7 +2,7 @@ defmodule OpenSCAD.Watcher do
   use GenServer
   require Logger
 
-  defstruct watcher_pid: nil 
+  defstruct watcher_pid: nil
 
   def start_link([]) do
     GenServer.start_link(__MODULE__, [])
@@ -16,7 +16,7 @@ defmodule OpenSCAD.Watcher do
     FileSystem.subscribe(watcher_pid)
     {:ok, %__MODULE__{watcher_pid: watcher_pid}}
   end
-  
+
   def handle_info({:file_event, watcher_pid, {path, _events}}, %__MODULE__{:watcher_pid => watcher_pid}=state) do
     {:ok, script} = File.read path
     case string_to_quoted(String.to_charlist(script), 0, path, []) do
@@ -26,7 +26,7 @@ defmodule OpenSCAD.Watcher do
       {:error, e} ->
         Logger.error "#{path} compilation error"
         Logger.error "#{inspect e}"
-      _ -> 
+      _ ->
         Logger.info "Compiling #{path}"
         try do
           Code.eval_file path
@@ -38,7 +38,7 @@ defmodule OpenSCAD.Watcher do
           Logger.info "Done compiling"
         end
         ## For each module load, if using OpenSCAD.Model, then module.run
-        modules = 
+        modules =
         try do
           Code.load_file(path)
         catch
@@ -80,7 +80,7 @@ defmodule OpenSCAD.Watcher do
       error ->
         error
     end
-  end 
+  end
 
 end
 
@@ -95,4 +95,4 @@ end
         #    Logger.error e
         #after
         #  Logger.info "Done compiling"
-        #end        
+        #end

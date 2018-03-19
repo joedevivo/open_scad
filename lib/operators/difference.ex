@@ -2,7 +2,7 @@ defmodule OpenSCAD.Difference do
   @behaviour OpenSCAD.Element
   @type t :: %OpenSCAD.Difference{}
 
-  defstruct([]) 
+  defstruct([])
 
   def new(params \\ []) do
     OpenSCAD.Element.new(

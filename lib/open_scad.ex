@@ -47,7 +47,7 @@ defmodule OpenSCAD do
       iex> OpenSCAD.cube(size: 2)
       %OpenSCAD.Action{children: [], modifier: nil, element: %OpenSCAD.Cube{width: 2, depth: 2, height: 2, center: false}}
 
-  """ 
+  """
 
   def cube(params \\ []) do
     OpenSCAD.Cube.new(params)
@@ -103,7 +103,7 @@ defmodule OpenSCAD do
   end
 
   @doc """
-  Rotates its child `x`, `y` and `z` degrees about the respective axis. 
+  Rotates its child `x`, `y` and `z` degrees about the respective axis.
 
   See [OpenSCAD rotate([deg_x, deg_y, deg_z])](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#rotate)
   """
@@ -112,10 +112,10 @@ defmodule OpenSCAD do
       OpenSCAD.Rotate.new(params),
       children)
   end
-  
+
   @doc """
-  Mirrors the child element on a plane through the origin. The arguments to 
-  mirror() is the x,y,z vector of a plane intersecting the origin through 
+  Mirrors the child element on a plane through the origin. The arguments to
+  mirror() is the x,y,z vector of a plane intersecting the origin through
   which to mirror the object.
 
   See [OpenSCAD mirror()](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#mirror)
@@ -126,7 +126,7 @@ defmodule OpenSCAD do
       children)
   end
 
-  @doc """  
+  @doc """
   Creates a union of all its child nodes. This is the sum of all
   children (logical or). May be used with either 2D or 3D objects, but don't mix
   them.
@@ -142,7 +142,7 @@ defmodule OpenSCAD do
 
   @doc """
   See [OpenSCAD difference()](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/CSG_Modelling#difference)
-  
+
   """
   def difference(children) do
     OpenSCAD.Action.new(
@@ -181,17 +181,17 @@ defmodule OpenSCAD do
   end
 
   @doc """
-  
+
   """
   def intersection(children) do
     OpenSCAD.Action.new(
       OpenSCAD.Intersection.new(),
       children
     )
-  end  
+  end
 
   @doc """
-  Displays the 
+  Displays the
   [convex hull](https://doc.cgal.org/latest/Convex_hull_2/index.html)
   of child nodes.
 
@@ -203,9 +203,9 @@ defmodule OpenSCAD do
       children
     )
   end
-  
+
   @doc """
-  Displays the 
+  Displays the
   [minkowski sum](https://doc.cgal.org/latest/Minkowski_sum_3/index.html)
   of child nodes.
 
@@ -216,6 +216,12 @@ defmodule OpenSCAD do
       OpenSCAD.Minkowski.new(),
       children
     )
+  end
+
+  def linear_extrude(children, params \\ []) do
+    OpenSCAD.Action.new(
+      OpenSCAD.LinearExtrude.new(params),
+      children)
   end
 end
 

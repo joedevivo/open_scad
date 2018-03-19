@@ -9,13 +9,13 @@ defmodule OpenSCAD.Disable do
       %OpenSCAD.Disable{},
       params,
       [])
-  end 
+  end
 end
 
 defimpl OpenSCAD.Modifier, for: OpenSCAD.Disable do
   def to_scad(_m) do
     "*"
-  end 
+  end
 
   def child(m) do
     m.child
@@ -23,13 +23,13 @@ defimpl OpenSCAD.Modifier, for: OpenSCAD.Disable do
 end
 
 defmodule OpenSCAD.ShowOnly do
-  
+
 end
 
 defmodule OpenSCAD.Debug do
-  
+
 end
 
 defmodule OpenSCAD.Transparent do
-  
+
 end

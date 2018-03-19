@@ -55,7 +55,7 @@ defmodule OpenSCADTest do
     translate([1, 2, 3])
     cube([2, 2, 2], center=false);
     """
-    
+
     assert to_scad(translate([cube(size: 2),cube(size: 1)],x: 1, y: 2, z: 3)) == """
     translate([1, 2, 3]) {
       cube([2, 2, 2], center=false);
@@ -99,7 +99,7 @@ defmodule OpenSCADTest do
 
     scad = [thing1, thing2]
            |> translate(x: 7, y: 8, z: 9)
-    
+
     assert to_scad(scad) == """
     translate([7, 8, 9]) {
       translate([4, 5, 6])
@@ -120,7 +120,7 @@ defmodule OpenSCADTest do
     scad = ["$fn = 20",
             sphere(r: 1, '$fa': 1, '$fn': 2.0, '$fs': 3.1)
             |> translate(x: 3, y: 2, z: 1),
-            circle(r: 1, '$fa': 1, '$fn': 2.0, '$fs': 3.1)] 
+            circle(r: 1, '$fa': 1, '$fn': 2.0, '$fs': 3.1)]
     assert to_scad(scad) == """
     $fn = 20;
     translate([3, 2, 1])
@@ -163,7 +163,7 @@ defmodule OpenSCADTest do
       [ 10,  0,  5 ],  ##5
       [ 10,  7,  5 ],  ##6
       [  0,  7,  5 ]]  ##7
-      
+
     cubeFaces = [
       [0,1,2,3],  ## bottom
       [4,5,1,0],  ## front
@@ -199,7 +199,7 @@ defmodule OpenSCADTest do
     cube([3, 3, 3], center=false);
     """
   end
-  
+
   test "mirror" do
     scad = cube(size: 3)
            |> mirror(x: 1)
@@ -219,9 +219,9 @@ defmodule OpenSCADTest do
     }
     """
   end
-  
+
   test "differnece" do
-    scad = [cube(width: 3, depth: 4, height: 5), 
+    scad = [cube(width: 3, depth: 4, height: 5),
             cube(width: 5, depth: 4, height: 3)]
            |> difference
     assert to_scad(scad) == """
@@ -231,7 +231,7 @@ defmodule OpenSCADTest do
     }
     """
   end
-  
+
   test "intersection" do
     scad = [cube(width: 3, depth: 4, height: 5), cube(width: 5, depth: 4, height: 3)]
            |> intersection

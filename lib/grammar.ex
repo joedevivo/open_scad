@@ -25,19 +25,19 @@ defmodule OpenSCAD.Action do
   def modify(action, modifier) do
     if Enum.member?(["*", "!", "#", "%"], modifier) do
       %OpenSCAD.Action{ action | modifier: modifier}
-    else 
+    else
       action
     end
   end
 
   defp maybe_modifier(%OpenSCAD.Action{element: nil}) do
-    ""    
+    ""
   end
   defp maybe_modifier(%OpenSCAD.Action{modifier: nil}) do
-    ""    
+    ""
   end
   defp maybe_modifier(action) do
-    action.modifier  
+    action.modifier
   end
 
   defp maybe_element(nil) do
@@ -46,10 +46,10 @@ defmodule OpenSCAD.Action do
   defp maybe_element(element) do
     OpenSCAD.Object.to_scad(element)
   end
-  
+
   defp maybe_children(%OpenSCAD.Action{children: c}, _) when length(c) == 0 do
     "\n"
-  end 
+  end
   defp maybe_children(%OpenSCAD.Action{children: c}, indent) when length(c) == 1 do
     "\n" <> to_scad(hd(c), indent)
   end
@@ -79,7 +79,7 @@ defmodule OpenSCAD.Action do
     maybe_modifier(action)
     <>
     maybe_element(action.element)
-    <> 
+    <>
     maybe_children(action, indent)
 
 #    cond do
@@ -91,7 +91,7 @@ defmodule OpenSCAD.Action do
 #        <>
 #        OpenSCAD.Object.to_scad(action)
 #        <> "\n"
-#        |> to_string 
+#        |> to_string
 #      (OpenSCAD.Operator.impl_for action) != nil ->
 #        String.pad_leading("", indent)
 #        <>
@@ -112,7 +112,7 @@ defmodule OpenSCAD.Action do
 #        end
 #    end
   end
-  
+
 end
 
 defprotocol OpenSCAD.Object do

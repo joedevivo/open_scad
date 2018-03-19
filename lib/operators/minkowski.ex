@@ -2,7 +2,7 @@ defmodule OpenSCAD.Minkowski do
   @behaviour OpenSCAD.Element
   @type t :: %OpenSCAD.Minkowski{}
 
-  defstruct([]) 
+  defstruct([])
 
   def new(params \\ []) do
     OpenSCAD.Element.new(
