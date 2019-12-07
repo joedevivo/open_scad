@@ -4,7 +4,7 @@ defmodule OpenSCAD.MixProject do
   def project do
     [
       app: :open_scad,
-      version: "0.5.0",
+      version: "0.5.1",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -14,11 +14,7 @@ defmodule OpenSCAD.MixProject do
       package: package(),
       name: "OpenSCAD",
       description: description(),
-      source_url: "https://github.com/joedevivo/open_scad",
-      dialyzer_ignored_warnings: [
-        {:warn_matching, {'lib/open_scad.ex', :_},
-         {:pattern_match, ['pattern \'not_consolidated\'', '{\'consolidated\',[atom(),...]}']}}
-      ]
+      source_url: "https://github.com/joedevivo/open_scad"
     ]
   end
 
