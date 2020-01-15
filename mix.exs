@@ -4,7 +4,7 @@ defmodule OpenSCAD.MixProject do
   def project do
     [
       app: :open_scad,
-      version: "0.5.1",
+      version: "0.5.2",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -39,7 +39,8 @@ defmodule OpenSCAD.MixProject do
     [
       extras: [
         "pages/getting_started.md",
-        "pages/open_scad_language.md"
+        "pages/open_scad_language.md",
+        "pages/slicing.md"
       ]
     ]
   end

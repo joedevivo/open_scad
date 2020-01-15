@@ -18,7 +18,7 @@ defmodule OpenSCAD.CherryMXTest do
     File.touch!(infile)
 
     # Give it a second to render
-    Process.sleep(500)
+    Process.sleep(1_000)
 
     infileinfo2 = File.lstat!(infile)
     outfileinfo2 = File.lstat!(outfile)

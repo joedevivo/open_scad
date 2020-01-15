@@ -15,6 +15,7 @@ defmodule OpenSCAD do
     defmacro __before_compile__(_env) do
       # TODO: Automate this generation
       impls = [
+        OpenSCAD.Projection,
         OpenSCAD.Polygon,
         OpenSCAD.Square,
         OpenSCAD.Translate,
@@ -135,5 +136,67 @@ defmodule OpenSCAD do
   def write(renderable, filename) do
     scad = to_scad(renderable)
     File.write(filename, scad)
+  end
+
+  @doc """
+  slice is something unavailable in openscad.
+
+  It's intention is to take a 3D model and output a set of SVGs that will be
+  individual layers that can be cut with a laser or CNC machine.
+
+  You can play around with these settings to distort the model, but if you want
+  it to be accurate, set `layer` to the thickness of your material.
+
+  Also, it shift the model z -layer mm for each step, and will create the svg
+  from all points at z=0 for that step. This means that it starts at z=0, and
+  anything below z=0 will not be accounted for at all. Also, it will only go as
+  high as `height`, so if you create a `cube(v: [100, 100, 100], center:true)`,
+  half of it will be below the z axis and never get rendered. It will have 50mm
+  above the z-axis, but if you set `height` to `25`, you'll lose the topp half
+  of that. Conversley, if you set `height` to `100`, you'll end up with half
+  your SVGs being empty.
+
+  - height: total height in mm
+  - layer: height per layer
+  - name: file_prefix
+  """
+  # TODO: After each SVG is created, read it and if it's empty abort the
+  # process, since if you're stacking layers and a layer is empty, you can't
+  # stack any higher.
+  @spec slice(any(), Keyword.t()) :: :ok
+  def slice(renderable, kwargs) do
+    layer_count = floor(kwargs[:height] / kwargs[:layer])
+
+    layer_digits =
+      layer_count
+      |> Integer.to_string()
+      |> String.length()
+
+    _ = File.mkdir_p(kwargs[:name])
+
+    _ = write(renderable, Path.join(kwargs[:name], "model.scad"))
+
+    Range.new(0, layer_count)
+    |> Enum.each(fn l ->
+      filename = String.pad_leading(Integer.to_string(l), layer_digits, "0")
+      scad_file = Path.join(kwargs[:name], Enum.join([filename, ".scad"]))
+      svg_file = Path.join(kwargs[:name], Enum.join([filename, ".svg"]))
+
+      _ =
+        renderable
+        |> translate(v: [0, 0, -(kwargs[:layer] * l)])
+        |> projection(cut: true)
+        |> write(scad_file)
+
+      {output, rc} = System.cmd("openscad", ["-o", svg_file, scad_file])
+
+      if rc != 0 do
+        IO.puts(output)
+      end
+
+      :ok
+    end)
+
+    :ok
   end
 end
