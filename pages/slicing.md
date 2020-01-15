@@ -15,7 +15,7 @@ Take the following model:
 
 which will output the following object
 
-![OpenSCAD Render](images/slice_1.png "OpenSCAD Render")
+![OpenSCAD Render](assets/slice_1.png "OpenSCAD Render")
 
 Now, if we want to slice it into 11 layers, we can give it a layer height of 5,
 and a height of 50, since that's as high above the z-axis as the model reaches.
@@ -33,7 +33,7 @@ This will create `output_dir`, and inside it will output the following files:
 Here's `05.svg` for reference:
 
 <center>
-<img src="images/05.svg" alt="05.svg, circle gets the square!" /><br/>
+<img src="assets/05.svg" alt="05.svg, circle gets the square!" /><br/>
 "05.svg, circle gets the square!"
 </center>
 <br/>
@@ -41,6 +41,6 @@ Here's `05.svg` for reference:
 At this point you can do with your svgs whatever you want. I wanted to bring
 this object back into the physical world...
 
-![Cardboard](images/slice_2.png "Cardboard")
-![Cardboard](images/slice_3.png "Cardboard")
-![Cardboard](images/slice_4.png "Cardboard")
+![Cardboard](assets/slice_2.png "Cardboard")
+![Cardboard](assets/slice_3.png "Cardboard")
+![Cardboard](assets/slice_4.png "Cardboard")

@@ -37,6 +37,7 @@ defmodule OpenSCAD.MixProject do
 
   defp docs do
     [
+      assets: "pages/assets",
       extras: [
         "pages/getting_started.md",
         "pages/open_scad_language.md",
