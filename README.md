@@ -24,7 +24,7 @@ cube(size: {1, 2, 3}, center: true)
 ## Features
 
 * Models defined in Elixir
-* Resuable components can be included as mix dependencies
+* Reusable components can be included as mix dependencies
 * `iex -S mix` will watch for changes in a project's `./models` directory, and
   run those scripts.
 * an escript can also be built that watches for changes in the directory
