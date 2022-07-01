@@ -116,7 +116,7 @@ defmodule OpenSCAD.Watcher do
   end
 
   defp string_to_quoted(string, start_line, file, opts) do
-    case :elixir.string_to_tokens(string, start_line, file, opts) do
+    case :elixir.string_to_tokens(string, start_line, 0, file, opts) do
       {:ok, tokens} ->
         :elixir.tokens_to_quoted(tokens, file, opts)
 
